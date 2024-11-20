@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 # Set up 
 date = datetime.now().strftime('%Y-%m-%d')
-report_date = (datetime.now() - timedelta(days=6)).strftime('%Y-%m-%d')
+report_date = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
 old_date = (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d')
 #links_file = os.environ.get('LINKS_FILE')
 #if not links_file:
