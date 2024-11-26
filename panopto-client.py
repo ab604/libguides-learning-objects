@@ -1,13 +1,8 @@
 import requests
 import json
 import csv
-import os
 from datetime import datetime
 from panopto_oauth2 import PanoptoOAuth2
-
-# Environment variables
-client_id = os.environ.get('CLIENT_ID')
-client_secret = os.environ.get('CLIENT_SECRET')
 
 class PanoptoClient:
     def __init__(self, server_url, client_id, client_secret, ssl_verify=True):
@@ -177,10 +172,10 @@ if __name__ == "__main__":
     try:
         # Configuration
         SERVER_URL = "https://southampton.cloud.panopto.eu"
-        CLIENT_ID = client_id
-        CLIENT_SECRET = client_secret
+        CLIENT_ID = "22d8c2d6-0c58-4398-81b9-b23300ab7e06"
+        CLIENT_SECRET = "IEsOQsglWORDm6OIDiiioCQeG3v3pyFZMEx0PoppXLM="
         FOLDER_ID = "fe0aa3a2-51e5-4231-becf-1306400b593b"
-        OUTPUT_FILE = "reports/panopto_recordings.csv"
+        OUTPUT_FILE = "panopto_recordings.csv"
 
         # Initialize and run
         client = PanoptoClient(

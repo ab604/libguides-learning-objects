@@ -46,34 +46,21 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    # Cache Playwright browsers to avoid reinstalling
-    - name: Cache Playwright browsers
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/ms-playwright
-        key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-playwright-
+    # # Cache Playwright browsers to avoid reinstalling
+    # - name: Cache Playwright browsers
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: ~/.cache/ms-playwright
+    #     key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-playwright-
 
     # Install required Python packages oauthlib.oauth2
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas requests_oauthlib playwright
-
-    # Install Playwright browsers if not found in cache
-    - name: Install Playwright browsers (if not cached)
-      run: |
-          playwright install chromium
-          playwright install-deps chromium
+        pip install pandas 
         
-    # Run Panopto API script
-    - name: Get Panopto API data
-      run: python panopto-client.py
-      env:
-        CLIENT_ID: ${{ env.CLIENT_ID }}
-        CLIENT_SECRET: ${{ env.CLIENT_SECRET }}
-
     # Run the data wrangling script
     - name: Run Learning Object Wrangle
       run: python learning-object-data.py
