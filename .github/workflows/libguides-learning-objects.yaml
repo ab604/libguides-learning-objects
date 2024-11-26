@@ -46,11 +46,11 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    # Install required Python packages
+    # Install required Python packages oauthlib.oauth2
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas requests-oauthlib oauthlib.oauth2
+        pip install pandas requests_oauthlib 
         
     # Run Panopto API script
     - name: Get Panopto API data
