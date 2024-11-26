@@ -50,7 +50,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas requests_oauth oauthlib.oauth2
+        pip install pandas requests-oauthlib oauthlib.oauth2
         
     # Run Panopto API script
     - name: Get Panopto API data
@@ -60,17 +60,14 @@ jobs:
         CLIENT_SECRET: ${{ env.CLIENT_SECRET }}
 
     # Run the data wrangling script
-    # - name: Run Learning Object Wrangle
-      # run: python learning-object-data.py
+    - name: Run Learning Object Wrangle
+      run: python learning-object-data.py
 
-    # Create status message
     - name: Create status message
       id: status_message
       run: |
           echo "STATUS_MESSAGE=LibGuides Learning Objects Webpage has updated. For more information, please visit: [https://ab604.github.io/link-crawler/](https://ab604.github.io/libguides-learning-objects/)." >> $GITHUB_ENV
-          fi
 
-    # Send email notification with results
     # - name: Send email notification
       # id: send_email
       # if: always()
@@ -81,17 +78,14 @@ jobs:
         # username: ${{secrets.GMAIL_USERNAME}}
         # password: ${{secrets.GMAIL_PASSWORD}}
         # subject: ${{ steps.check_broken_links.outputs.broken_links_found == 'true' && 'FAO Carrie - Broken Links Found on Library Website' || 'FAO Carrie - No Broken Links Found on Library Website' }}
-        # html_body: ${{ env.STATUS_MESSAGE }} # Needs to be html to stop Outlook safelinks
+        # html_body: ${{ env.STATUS_MESSAGE }}
         # convert_markdown: true
-        attachments: ${{ env.ATTACHMENT }}
+        # attachments: ${{ env.ATTACHMENT }}
         # to: ${{secrets.LIB_EMAIL_RECIPIENT}}
         # cc: ${{secrets.EMAIL_RECIPIENT}}, ${{secrets.AB_EMAIL_RECIPIENT}}
-        # from: Library Linkchecker # ${{secrets.GMAIL_USERNAME}}
+        # from: Library Linkchecker
         # priority: normal
         # secure: true
-      # env:
-        # STATUS_MESSAGE: ${{ env.STATUS_MESSAGE }}
-        # ATTACHMENT: ${{ env.ATTACHMENT }}
 
     # Prepare website directory for deployment
     - name: Prepare website artifacts
