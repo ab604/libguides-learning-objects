@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library LibGuides Learning Objects</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.5.2/css/tabulator.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.5.2/js/tabulator.min.js"></script>
+    <!-- Add React and ReactDOM scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <!-- Add Babel for JSX support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Roboto, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative; /* Add this for positioning the logo */
+        }
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 90px; /* Adjust to match h1 size */
+            height: 90px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .report-date {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        #linkTable {
+            margin-top: 20px;
+            background-color: white;
+        }
+        .tab-buttons {
+            margin-bottom: 20px;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
+        .tab-button.active {
+            background-color: #005C84;
+            color: white;
+        }
+        .search-container {
+            margin-bottom: 15px;
+        }
+        #searchInput {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+            /* Dark mode styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .container {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 4px rgba(255,255,255,0.1);
+        }
+
+        body.dark-mode h1 {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .report-date {
+            color: #a0a0a0;
+        }
+
+        body.dark-mode .tab-button {
+            background-color: #333;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .tab-button.active {
+            background-color: #005C84;
+            color: white;
+        }
+
+        body.dark-mode #searchInput {
+            background-color: #2c2c2c;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        /* Dark mode link colors */
+        body.dark-mode a {
+            color: #74C9E5;  /* Lighter blue for dark mode */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* Dark mode toggle switch styles */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        } 
+        /* Dark mode table styles */
+        body.dark-mode .tabulator {
+            background-color: #2c2c2c;
+        }
+
+        body.dark-mode .tabulator-row {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        body.dark-mode .tabulator-row:nth-child(even) {
+            background-color: #252525;
+        }
+
+        body.dark-mode .tabulator-row:hover {
+            background-color: #333 !important;
+        }
+
+        body.dark-mode .tabulator-col {
+            background-color: #333;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        body.dark-mode .tabulator-col-content {
+            background-color: #333;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        body.dark-mode .tabulator-col-title {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .tabulator-pagination {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .tabulator-footer-contents {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .tabulator-page {
+            background-color: #333;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .tabulator-page.active {
+            background-color: #ffffff;
+            color: white;
+        }
+
+        body.dark-mode #summaryContent {
+            background-color: #2c2c2c;
+            color: #000000;
+        }   
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <div class="dark-mode-toggle" style="position: absolute; top: 20px; right: 150px;">
+                <label class="switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                </label>
+                Toggle Colour
+            </div>
+        <h1>Library LibGuides Learning Objects</h1>
+        <img src="black-stag.svg" alt="Black Stag Logo" class="logo">
+        </div>
+        <div class="report-date">Report generated: <span id="reportDate"></span></div>
+        <div id="summaryContent" style="margin-bottom: 20px; padding: 15px; background-color: #f8f8f8; border-radius: 4px;">
+            <!-- Summary content will be inserted here -->
+        </div>
+
+        <p>
+        This page displays information about the learning objects (LO) found on the University of Southampton Library LibGuides pages. There are two tables:
+            <ul>
+                <li>All Learning Objects shows all LO types found on LibGuides as per the summary above using the <a href="https://ab604.github.io/link-crawler/" target="_blank">link crawler</a></li>
+                <li>Panopto just shows the Panopto LOs that are from LIBSKILL and on LibGuides</li>
+            </ul>
+
+        The table displays these columns:
+        <ul>
+            <li><strong>Name</strong> of the Panopto recording or the <strong>Learning Object Type</strong> depending on which table is selected.</li>
+            <li><strong>URL</strong> is the URL of the learning object.</li>
+            <li><strong>Status Code</strong> is the HTTP status code of the checked link.</li>
+            <li><strong>Status Emoji</strong> is a visual indicator of the status code: 💙 for 200 OK, 💔 for 404 broken, 😕 for any other status.</li>
+            <li><strong>Page Found On</strong> is the webpage on which the learning object is linked or embedded.</li>
+        </ul>
+
+        You can filter the table using the search box and download either the filtered or unfiltered data as a CSV file.
+        <br><br>
+        Contact: <a href="mailto:digitalscholarship@soton.ac.uk">digitalscholarship@soton.ac.uk</a>
+        Github source code: <a href="https://github.com/ab604/libguides-learning-objects" target="_blank">https://github.com/ab604/libguides-learning-objects</a>
+        </p>
+        
+        <div class="tab-buttons">
+            <button class="tab-button" onclick="loadData('all')">All Learning Objects</button>
+            <button class="tab-button active" onclick="loadData('Panopto')">Panopto</button>      
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search in table...">
+            <div id="csvExportContainer"></div> 
+        </div>
+
+        <div id="linkTable"></div>
+    </div>
+
+    <script>
+        // Initialize table with link formatters
+        let table = new Tabulator("#linkTable", {
+            height: "700px",
+            layout: "fitColumns",
+            pagination: true,
+            paginationSize: 25,
+             // Add theme-related options
+            theme: "default", // This will help with theme switching
+            columnHeaderVertAlign: "middle",
+            columns: [
+                {
+                    title: "Name",
+                    field: "Name",
+                    sorter: "string",
+                    width: 300
+                },
+                {
+                    title: "URL", 
+                    field: "URL", 
+                    sorter: "string", 
+                    width: 300,
+                    formatter: function(cell) {
+                        const value = cell.getValue();
+                        return value ? `<a href="${value}" target="_blank">${value}</a>` : '';
+                    }
+                },
+                {title: "Status", field: "Status Code", sorter: "string", width: 100},
+                {
+                    title: "Status Emoji",
+                    field: "Status Code",
+                    width: 150,
+                    formatter: function(cell) {
+                        const statusCode = cell.getValue();
+                        if (statusCode === '200') {
+                            return '💙'; // Blue heart for 200 OK
+                        } else if (statusCode === '404') {
+                            return '💔'; // Broken heart for 404 Not Found
+                        } else {
+                            return '😕'; // Confused face for any other status
+                        }
+                    }
+                },
+                {
+                    title: "Page Found On", 
+                    field: "Parent URL", 
+                    sorter: "string",
+                    formatter: function(cell) {
+                        const value = cell.getValue();
+                        return value ? `<a href="${value}" target="_blank">${value}</a>` : '';
+                    }
+                } 
+            ]
+        });
+
+        // Set current date
+        document.getElementById("reportDate").textContent = new Date().toISOString().split('T')[0];
+
+        // Load data function
+        async function loadData(type) {
+            // Clear search input
+            document.getElementById('searchInput').value = '';
+    
+            // Clear any existing filters
+            table.clearFilter();
+
+            // Update active button
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Activate the correct button
+            const activeButton = document.querySelector(`.tab-button[onclick="loadData('${type}')"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+
+            // Update the first column title based on the selected tab
+            const firstColumn = table.getColumn("Name") || table.getColumn("lo");
+            if (firstColumn) {
+                firstColumn.updateDefinition({
+                    title: type === 'all' ? "Learning Object Type" : "Name",
+                    field: type === 'all' ? "lo" : "Name"
+                });
+            }
+
+            // Load appropriate CSV file
+            const fileName = type === 'Panopto' ? 'tables/panopto_table.csv' : 'tables/all_lo_table.csv';
+            try {
+                const response = await fetch(fileName);
+                const csvText = await response.text();
+                const data = parseCSV(csvText);
+                table.setData(data);
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        // Set-up search event listener:
+        document.querySelector('.search-container').addEventListener('input', function(event) {
+            if (event.target.id === 'searchInput') {
+                const searchTerm = event.target.value.toLowerCase();
+
+                // Clear any existing filters first
+                table.clearFilter();
+
+                // Apply filter if search term is not empty
+                if (searchTerm) {
+                    table.setFilter(function(data) {
+                        return (
+                            (data.lo && data.lo.toLowerCase().includes(searchTerm)) ||
+                            (data.Name && data.Name.toLowerCase().includes(searchTerm)) ||
+                            (data.URL && data.URL.toLowerCase().includes(searchTerm)) ||
+                            (data['Parent URL'] && data['Parent URL'].toLowerCase().includes(searchTerm)) ||
+                            (data['Status Code'] && data['Status Code'].toLowerCase().includes(searchTerm))
+                        );
+                    });
+                }
+            }
+        });
+
+        // Advanced CSV parser
+        function parseCSV(csv) {
+            const lines = csv.split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            
+            return lines.slice(1).filter(line => line.trim()).map(line => {
+                const values = [];
+                let currentValue = '';
+                let inQuotes = false;
+                
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    
+                    if (char === '"' && line[i+1] === '"') {
+                        currentValue += '"';
+                        i++;
+                    } else if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        values.push(currentValue.trim());
+                        currentValue = '';
+                    } else {
+                        currentValue += char;
+                    }
+                }
+                
+                // Add the last value
+                values.push(currentValue.trim());
+                
+                // Map values to headers
+                return headers.reduce((obj, header, i) => {
+                    // Remove surrounding quotes if present
+                    let value = values[i];
+                    if (value && value.startsWith('"') && value.endsWith('"')) {
+                        value = value.slice(1, -1);
+                    }
+                    obj[header] = value;
+                    return obj;
+                }, {});
+            });
+        }
+
+        // Load all when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData('all');
+            loadSummaryData(); // Add this line
+        });
+
+    </script>
+
+    <!-- Add the CSV Export Component code -->
+    <script type="text/babel">
+        // Modify the Button component to support dark mode
+        const Button = ({ children, onClick, className }) => {
+            const buttonStyle = {
+                padding: '10px 20px',
+                borderRadius: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                transition: 'background-color 0.2s',
+                backgroundColor: '#3CBAC6',
+                color: 'white',
+                border: 'none',
+                cursor: 'pointer'
+            };
+        
+            return (
+                <button 
+                    onClick={onClick}
+                    style={buttonStyle}
+                    className={className}
+                >
+                    {children}
+                </button>
+            );
+        };
+
+        const Download = ({ className }) => (
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="white"
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                className={className}
+            >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+        );
+        
+        const CSVExportButton = ({ tableId = 'linkTable' }) => {
+            const exportToCSV = () => {
+                const tabulatorTable = Tabulator.findTable(`#${tableId}`)[0];
+            
+                if (!tabulatorTable) {
+                    console.error('Tabulator table not found');
+                    return;
+                }
+            
+                const today = new Date();
+                const date = today.toISOString().split('T')[0];
+            
+                tabulatorTable.download("csv", `link-checker-report-${date}.csv`);
+            };
+        
+            return (
+                <Button 
+                    onClick={exportToCSV}
+                    className="flex items-center gap-2"
+                >
+                    <Download 
+                        className="w-4 h-4" 
+                    />
+                    Export to CSV
+                </Button>
+            );
+        };
+
+        // Render the component
+        ReactDOM.render(
+           <CSVExportButton />,
+           document.getElementById('csvExportContainer')
+        );
+
+    </script>
+
+    <script>
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const logoImg = document.querySelector('.logo');
+
+        // Check for saved dark mode preference
+        const savedDarkMode = localStorage.getItem('darkMode');
+
+        function toggleDarkMode(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                logoImg.src = 'white-stag.svg'; // Switch to white logo
+
+                // Tabulator dark mode
+                table.setTheme("midnight");
+            } else {
+                document.body.classList.remove('dark-mode');
+                logoImg.src = 'black-stag.svg'; // Switch back to black logo
+
+                // Revert to light mode
+                table.setTheme("default");
+            }
+        }
+
+        if (savedDarkMode === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+            logoImg.src = 'white-stag.svg'; // Set white logo on initial dark mode load
+
+            // Apply dark theme on initial load
+            table.setTheme("midnight");
+        }
+
+        darkModeToggle.addEventListener('click', function() {
+            const isChecked = this.checked;
+
+            if (isChecked) {
+                toggleDarkMode(true);
+                localStorage.setItem('darkMode', 'enabled');
+            
+                // Dispatch custom event for dark mode change
+                window.dispatchEvent(new CustomEvent('darkModeChanged', { 
+                    detail: true,
+                    bubbles: true,
+                    cancelable: true 
+                }));
+            } else {
+                toggleDarkMode(false);
+                localStorage.setItem('darkMode', null);
+            
+                // Dispatch custom event for dark mode change
+                window.dispatchEvent(new CustomEvent('darkModeChanged', { 
+                    detail: false,
+                    bubbles: true,
+                    cancelable: true 
+                }));
+            }
+        });
+
+        // Ensure initial dispatch works
+        if (savedDarkMode === 'enabled') {
+            window.dispatchEvent(new CustomEvent('darkModeChanged', { 
+                detail: true,
+                bubbles: true,
+                cancelable: true 
+            }));
+        }
+        async function loadSummaryData() {
+            try {
+                const response = await fetch('tables/lo_summary_table.csv');
+                const csvText = await response.text();
+                const data = parseCSV(csvText);
+
+                // Format the summary data
+                const summaryHTML = data.map(row => {
+                    return `<p><strong>${row.lo}:</strong> ${row.n}</p>`;
+                }).join('');
+
+                // Insert the formatted summary into the summaryContent div
+                document.getElementById('summaryContent').innerHTML = `
+                    <h3 style="margin-top: 0; margin-bottom: 10px;">Number of Learning Objects on LibGuides with unique URLs</h3>
+                    ${summaryHTML}
+                `;
+            } catch (error) {
+                console.error('Error loading summary data:', error);
+                document.getElementById('summaryContent').innerHTML = 
+                    '<p>Error loading summary data</p>';
+            }
+        }
+    </script>
+</body>
+</html>
