@@ -60,16 +60,16 @@ jobs:
         CLIENT_SECRET: ${{ env.CLIENT_SECRET }}
 
     # Run the data wrangling script
-    - name: Run Learning Object Wrangle
-      run: python learning-object-data.py
+    # - name: Run Learning Object Wrangle
+      # run: python learning-object-data.py
 
     # Create status message
-    # - name: Create status message
-      # id: status_message
-      # run: |
-          # echo "STATUS_MESSAGE=LibGuides Learning Objects Webpage has updated. For more information, please visit: [https://ab604.github.io/link-crawler/](https://ab604.github.io/libguides-learning-objects/)." >> $GITHUB_ENV
-          # fi
-          
+    - name: Create status message
+      id: status_message
+      run: |
+          echo "STATUS_MESSAGE=LibGuides Learning Objects Webpage has updated. For more information, please visit: [https://ab604.github.io/link-crawler/](https://ab604.github.io/libguides-learning-objects/)." >> $GITHUB_ENV
+          fi
+
     # Send email notification with results
     # - name: Send email notification
       # id: send_email
