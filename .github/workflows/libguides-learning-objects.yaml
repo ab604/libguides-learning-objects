@@ -19,7 +19,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  linkchecker:
+  learning_objects:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -53,11 +53,11 @@ jobs:
         pip install pandas requests_oauthlib 
         
     # Run Panopto API script
-    - name: Get Panopto API data
-      run: python panopto-client.py
-      env:
-        CLIENT_ID: ${{ env.CLIENT_ID }}
-        CLIENT_SECRET: ${{ env.CLIENT_SECRET }}
+    # - name: Get Panopto API data
+    #   run: python panopto-client.py
+    #   env:
+    #     CLIENT_ID: ${{ env.CLIENT_ID }}
+    #     CLIENT_SECRET: ${{ env.CLIENT_SECRET }}
 
     # Run the data wrangling script
     - name: Run Learning Object Wrangle
