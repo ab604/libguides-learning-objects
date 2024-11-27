@@ -251,7 +251,7 @@
         </div>
 
         <p>
-        This page displays information about the learning objects (LO) found on the University of Southampton Library LibGuides pages. There are two tables:
+        This page displays information about the learning objects (LO) found on the University of Southampton Library LibGuides pages.<br><strong>Click a button to select one of the two tables:</strong>
             <ul>
                 <li>All Learning Objects shows all LO types found on LibGuides as per the summary above using the <a href="https://ab604.github.io/link-crawler/" target="_blank">link crawler</a></li>
                 <li>Panopto just shows the Panopto LOs that are in the LIBSKILLS folder and also on LibGuides</li>
@@ -447,10 +447,17 @@
             });
         }
 
-        // Load all when page loads
+        // Load Summary Data when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            loadData('all');
             loadSummaryData(); // Add this line
+        });
+
+        // Add an event listener to the tab buttons to load data when a tab is selected
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const type = button.getAttribute('onclick').match(/'([^']+)'/)[1];
+                loadData(type);
+            });
         });
 
     </script>
