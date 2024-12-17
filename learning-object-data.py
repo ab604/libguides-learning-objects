@@ -39,8 +39,8 @@ def download_latest_report(force_download=False):
                     continue
 
         # Get GitHub repository contents
-        api_url = "https://api.github.com/repos/ab604/link-crawler/contents/reports"
-        raw_url_template = "https://raw.githubusercontent.com/ab604/link-crawler/main/reports/{filename}"
+        api_url = "https://api.github.com/repos/unisotonlibrary/link-crawler/contents/reports"
+        raw_url_template = "https://raw.githubusercontent.com/unisotonlibrary/link-crawler/main/reports/{filename}"
         
         headers = {'Accept': 'application/vnd.github.v3+json'}
         response = requests.get(api_url, headers=headers)
