@@ -66,11 +66,16 @@ The workflow uses the following secrets in the GitHub repository:
 ## Panopto API
 
 The Panopto API client requires you to created a Server Side Web
-Application that is configured with client ID and client secret. You can
-create these in your Panopto Profile Settings:
+Application that is configured with client ID and client secret.
 
-![Create a new Panopto API client](./panopto-api-01.PNG) ![Configure
-your Panopto Server Side Web Application](./panopto-api-02.PNG)
+You can create the client in your Panopto User Settings:
+
+![Create a new Panopto API client](./panopto-api-01.PNG)
+
+Then configure the Server Side Web Application:
+
+![Configure your Panopto Server Side Web
+Application](./panopto-api-02.PNG)
 
 And then store the client ID and client secret locally in a `.env` file:
 
