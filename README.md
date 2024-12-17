@@ -2,6 +2,9 @@
 
 Invalid Date
 
+This repo has been retired here and is now at
+<https://github.com/UniSotonLibrary/libguides-learning-objects>
+
 This repository contains the python code and yaml workflow for collating
 information about the learning objects (LOs) hosted on the University of
 Southampton LibGuides pages.
