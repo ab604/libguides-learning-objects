@@ -64,3 +64,22 @@ The workflow uses the following secrets in the GitHub repository:
 - `EMAIL_RECIPIENT`: CC email recipient (if desired)
 
 ## Panopto API
+
+The Panopto API client requires you to created a Server Side Web
+Application that is configured with client ID and client secret. You can
+create these in your Panopto Profile Settings:
+
+![Create a new Panopto API client](./panopto-api-01.PNG) ![Configure
+your Panopto Server Side Web Application](./panopto-api-02.PNG)
+
+And then store the client ID and client secret locally in a `.env` file:
+
+``` bash
+export CLIENT_ID="your-client-id"
+export CLIENT_SECRET="your-client-secret"
+```
+
+These are used by the `panopto_oauth2.py` file. The folder id for
+LIBSKILLS is in the `panopto-client.py` file and once you’ve sourced the
+`.env` file you can run the `panopto-client.py` file to create the
+`panopto_recordings.csv` file.
