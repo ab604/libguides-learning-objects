@@ -71,7 +71,7 @@ jobs:
     - name: Create status message
       id: status_message
       run: |
-          echo "STATUS_MESSAGE=LibGuides Learning Objects Webpage has updated. For more information, please visit: [https://ab604.github.io/link-crawler/](https://ab604.github.io/libguides-learning-objects/)." >> $GITHUB_ENV
+          echo "STATUS_MESSAGE=LibGuides Learning Objects Webpage has updated. For more information, please visit: [https://unisotonlibrary.github.io/libguides-learning-objects](https://unisotonlibrary.github.io/libguides-learning-objects)." >> $GITHUB_ENV
 
     # - name: Send email notification
       # id: send_email
@@ -82,7 +82,7 @@ jobs:
         # server_port: 465
         # username: ${{secrets.GMAIL_USERNAME}}
         # password: ${{secrets.GMAIL_PASSWORD}}
-        # subject: ${{ steps.check_broken_links.outputs.broken_links_found == 'true' && 'FAO Carrie - Broken Links Found on Library Website' || 'FAO Carrie - No Broken Links Found on Library Website' }}
+        # subject: ${{ steps.check_broken_links.outputs.broken_links_found == 'true' && 'FAO Carrie - LibGuides Learning Objects Summary Updated' || 'FAO Carrie - LibGuides Learning Objects Summary Updated' }}
         # html_body: ${{ env.STATUS_MESSAGE }}
         # convert_markdown: true
         # attachments: ${{ env.ATTACHMENT }}
