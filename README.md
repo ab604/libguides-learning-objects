@@ -1,6 +1,6 @@
 # LibGuides Learning Objects
 
-Invalid Date
+Last updated: 2024-12-17
 
 This repo has been retired here and is now at
 <https://github.com/UniSotonLibrary/libguides-learning-objects>
